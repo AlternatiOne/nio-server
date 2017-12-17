@@ -44,27 +44,7 @@ public class Server implements Runnable {
     }
 
 
-
-
-
     /**
-     * Про закрытие ресурсов:
-     *
-     * ServerSocketChannel и Selector закрываются благодоря блоку try-w-r.
-     * ServerSocket внутри ServerSocketChannel закрывается вместе с ним.
-     *
-     * Открытые в методе onAccept() соединения SocketChannel (а точнее Socket внутри) закрываются в методе onRead(),
-     * когда channel.read(buffer) возвращает -1, т.е. когда клиент завершил соединение, закрыв сокет методом close().
-     *
-     * Если клиент _разорвал_ соединение, а сервер следом попытается прочитать/записать данные,
-     *  -> IOException: Удаленный хост принудительно разорвал существующее подключение
-     * и в catch блоке канал закрывается.
-     *
-     * Если вызван interrupt() на потоке, в котором работает сервер, сервер сразу же прекращает работу, но соединения,
-     * которые обычно закрываются в методе onRead(), тоже будут закрыты. У клиента в этом случает будет SocketException.
-     *
-     * interrupt(), в частности, прерывает блокирующий метод selector.select()
-     *
      * todo переслать уже полученные данные при интерапте
      * todo parse data для закрытия сокета
      * todo сделать набор разных BrokenServer(с паузами и прекращеями работ в разных местах) для тестирования клиента
@@ -134,6 +114,7 @@ public class Server implements Runnable {
             ServerSocketChannel channel = (ServerSocketChannel) key.channel();
             //System.out.println(PREFIX + "Установка соединения...");
             logger.log(this, "Установка соединения...");
+            //Sleeper.sleep(1000);
             SocketChannel socketChannel = channel.accept();
             socketChannel.configureBlocking(false);
             socketChannel.register(key.selector(), SelectionKey.OP_READ);
@@ -177,7 +158,7 @@ public class Server implements Runnable {
                 logger.log(this, "Завершение соединения с " + channel.getRemoteAddress() + " в onRead");
                 channel.close();   // + происходит удаление регистрации у селектора
                 // + SelectionKey становится невалидным (isValid()), и если на нем вызвать, например, метод interestOps(),
-                // то CancelledKeyException. "Заверншенный" SelectionKey удаляется при вызове selector.select()
+                // то CancelledKeyException. "Завершенный" SelectionKey удаляется при вызове selector.select()
             } else if (bytesRead > 0) {
                 buffers.addLast(buffer);
                 //System.out.println("Буффер добавлен");

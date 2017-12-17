@@ -4,6 +4,10 @@ import ru.alttiri.io_handlers.InputLinePrinter;
 import ru.alttiri.io_handlers.InputStreamHandlerCreator;
 import ru.alttiri.io_handlers.MessageBufferedWriter;
 import ru.alttiri.io_handlers.MessageOutputStreamHandlerCreator;
+import ru.alttiri.socket_hadlers.IOSocketHandler;
+import ru.alttiri.socket_hadlers.IOSocketHandlerCreator;
+import ru.alttiri.socket_hadlers.WriteReadSocketHandler;
+
 
 public class DefaultClientContext implements ClientContext {
 
@@ -49,5 +53,10 @@ public class DefaultClientContext implements ClientContext {
     @Override
     public InputStreamHandlerCreator inputStreamCreator() {
         return InputLinePrinter::new;
+    }
+
+    @Override
+    public IOSocketHandlerCreator socketHandlerCreator() {
+        return WriteReadSocketHandler::new;
     }
 }

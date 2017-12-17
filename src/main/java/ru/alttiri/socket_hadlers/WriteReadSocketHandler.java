@@ -8,6 +8,7 @@ import ru.alttiri.logger.Logger;
 import java.net.Socket;
 
 
+//todo убрать наследованик и сделать композицию, IOSocketHandler можно заменить на класс Контекста
 public class WriteReadSocketHandler extends IOSocketHandler {
 
     private Logger logger = Logger.getInstance();
@@ -43,8 +44,8 @@ public class WriteReadSocketHandler extends IOSocketHandler {
             //System.out.println(PREFIX + "Чтение: ");
             logger.log(this, "Чтение: ");
             getInputStreamHandler().handle();
-            System.out.println(PREFIX + "Прочитано");
-            //logger.log(this, "Прочитано");
+            //System.out.println(PREFIX + "Прочитано");
+            logger.log(this, "Прочитано");
 
             Sleeper.sleep(client.pauseAfterIteration());
         }

@@ -20,7 +20,7 @@ public abstract class IOSocketHandler implements SocketHandler {
         this.socket = socket;
     }
 
-    protected static final String PREFIX = "IOSocketHandler: ";
+    //protected static final String PREFIX = "IOSocketHandler: ";
 
     private InputStreamHandler inputStreamHandler;
     private InputStreamHandlerCreator inputStreamHandlerCreator;

@@ -2,6 +2,10 @@ package ru.alttiri.context;
 
 import ru.alttiri.io_handlers.InputStreamHandlerCreator;
 import ru.alttiri.io_handlers.MessageOutputStreamHandlerCreator;
+import ru.alttiri.socket_hadlers.IOSocketHandler;
+import ru.alttiri.socket_hadlers.IOSocketHandlerCreator;
+
+import java.net.Socket;
 
 import static ru.alttiri.Settings.CLIENT_ITERATION;
 import static ru.alttiri.Settings.CLIENT_MESSAGE;
@@ -9,6 +13,7 @@ import static ru.alttiri.Settings.CLIENT_PAUSE_AFTER_ITERATION;
 import static ru.alttiri.Settings.CLIENT_PAUSE_BEFORE_ITERATION;
 import static ru.alttiri.Settings.CLIENT_PAUSE_MIDDLE;
 import static ru.alttiri.Settings.INPUT_HANDLER_CREATOR;
+import static ru.alttiri.Settings.IO_SOCKET_HANDLER_CREATOR;
 import static ru.alttiri.Settings.MESSAGE_OUTPUT_HANDLER_CREATOR;
 
 public class SettingsClientContext implements ClientContext{
@@ -52,5 +57,10 @@ public class SettingsClientContext implements ClientContext{
     @Override
     public InputStreamHandlerCreator inputStreamCreator() {
         return INPUT_HANDLER_CREATOR;
+    }
+
+    @Override
+    public IOSocketHandlerCreator socketHandlerCreator() {
+        return IO_SOCKET_HANDLER_CREATOR;
     }
 }

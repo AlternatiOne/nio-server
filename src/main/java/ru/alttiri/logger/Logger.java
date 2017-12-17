@@ -39,5 +39,8 @@ public class Logger {
         System.err.println(clazz.getClass().getSimpleName() + ": " + str);
     }
 
+    public synchronized void log(Exception e) {
+        e.printStackTrace();
+    }
 
 }

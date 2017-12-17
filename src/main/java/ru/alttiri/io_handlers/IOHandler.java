@@ -1,5 +1,5 @@
 package ru.alttiri.io_handlers;
 
 public interface IOHandler {
-    void handle();
+    void handle(); // мб пробрасывать исключение?
 }

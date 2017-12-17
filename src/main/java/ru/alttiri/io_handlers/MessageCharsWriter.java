@@ -1,5 +1,7 @@
 package ru.alttiri.io_handlers;
 
+import ru.alttiri.logger.Logger;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -9,6 +11,7 @@ import static java.util.Objects.isNull;
 public class MessageCharsWriter extends MessageOutputStreamHandler {
 
     private Writer writer;
+    private Logger logger = Logger.getInstance();
 
     public MessageCharsWriter(OutputStream output) {
         this.writer = new OutputStreamWriter(output);
@@ -24,11 +27,14 @@ public class MessageCharsWriter extends MessageOutputStreamHandler {
                 char[] chars = getMessage().toCharArray(); // getBytes() -- кодировку потеряет
                 for (char ch : chars) {
                     writer.write(ch);
+                    logger.log(ch+"");
+                    writer.flush();
                 }
                 writer.write(System.getProperty("line.separator")); // reader.readLine() ожидает \n
                 writer.flush();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(e);
+//                e.printStackTrace();
             }
         }
 
