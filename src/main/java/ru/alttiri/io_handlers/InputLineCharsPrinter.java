@@ -41,10 +41,10 @@ public class InputLineCharsPrinter implements InputStreamHandler {
                 }
                 ch = reader.read();
             }
-//            System.out.println();
-//            System.out.println("InputLineCharsPrinter: End of the stream has been reached");
-//            logger.log(this, "");
-            logger.log(this, "End of the stream has been reached");
+
+            if (ch == -1) {
+                logger.log(this, "End of the stream has been reached");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

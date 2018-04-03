@@ -1,5 +1,6 @@
 package ru.alttiri.io_handlers;
 
+import ru.alttiri.Sleeper;
 import ru.alttiri.logger.Logger;
 
 import java.io.IOException;
@@ -28,7 +29,8 @@ public class MessageCharsWriter extends MessageOutputStreamHandler {
                 for (char ch : chars) {
                     writer.write(ch);
                     logger.log(ch+"");
-                    writer.flush();
+                    //Sleeper.sleep(200);
+                    //writer.flush();
                 }
                 writer.write(System.getProperty("line.separator")); // reader.readLine() ожидает \n
                 writer.flush();

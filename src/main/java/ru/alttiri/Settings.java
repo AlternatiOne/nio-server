@@ -1,19 +1,6 @@
 package ru.alttiri;
 
 
-    /*
-    SERVER_LIFE_TIME
-    SERVER_PAUSE_AFTER
-    CLIENT_PAUSE1
-    CLIENT_PAUSE2
-
-    2299 999 0 999
-    Сервер прочел половину.
-
-    999 999 1999 999
-    сразу же закрыл
-    */
-
 
 import ru.alttiri.io_handlers.InputLineCharsPrinter;
 import ru.alttiri.io_handlers.InputLinePrinter;
@@ -28,6 +15,7 @@ import ru.alttiri.runners.printer.LineWithInfoPrinter;
 import ru.alttiri.runners.printer.ProcessInputPrinter;
 import ru.alttiri.socket_hadlers.IOSocketHandler;
 import ru.alttiri.socket_hadlers.IOSocketHandlerCreator;
+import ru.alttiri.socket_hadlers.ReadSocketHandler;
 import ru.alttiri.socket_hadlers.ReadWriteSocketHandler;
 import ru.alttiri.socket_hadlers.WriteReadSocketHandler;
 import ru.alttiri.socket_hadlers.WriteSocketHandler;
@@ -56,11 +44,10 @@ public final class Settings {
     }
 
     private static SettingsArray array =
-            //new SettingsArray(2299, 999, 0, 0, 999);    // Сервер прочел половину.
-            //new SettingsArray(999, 999, 0, 1999, 999);  // сразу же закрыл
-            new SettingsArray(555, 999, 1111, 1999, 999);  //
-            //new SettingsArray(999, 999, 999, 1999, 999);  //
-            //new SettingsArray(15299, 399, 0, 350, 999); // было до создания этого SettingsArray
+            //new SettingsArray(2299, 999, 0, 0, 999);    // Клиент отправил данные, сервер прочел часть.
+            //new SettingsArray(999, 999, 1111, 0, 999); // Клиент не успел отправить, а сервер уже закрыл сокет
+            //new SettingsArray(999, 0, 1111, 0, 999);   // Клиент не успел отправить, а сервер уже закрыл сокет
+            new SettingsArray(15299, 399, 0, 350, 999); // было до создания этого SettingsArray
 
 
 
@@ -91,7 +78,7 @@ public final class Settings {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    public static final IOSocketHandlerCreator IO_SOCKET_HANDLER_CREATOR = ReadWriteSocketHandler::new;
+    public static final IOSocketHandlerCreator IO_SOCKET_HANDLER_CREATOR = WriteReadSocketHandler::new;
     //// WriteReadSocketHandler, ReadSocketHandler, WriteSocketHandler, ReadWriteSocketHandler
 
     // IOSocketHandler: WriteReadSocketHandler, ReadSocketHandler, WriteSocketHandler, ReadWriteSocketHandler
